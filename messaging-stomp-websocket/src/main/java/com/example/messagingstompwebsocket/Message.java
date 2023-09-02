@@ -4,29 +4,36 @@
  */
 package com.example.messagingstompwebsocket;
 
+import java.util.Date;
+
 /**
  *
  * @author Student
  */
 public class Message {
-  
-  private String mess;
+
+    private int id;
+    private String content;
+  private Date date;
 
   public Message() {
   }
 
   public Message(String mess) {
-      System.out.println(mess);
-    this.mess = mess;
+    this.content = mess;
+    this.date = new Date();
   }
   
   public String getMess(){
-      return this.mess;
+      return this.content;
   }
   
   public void setMess(String mess){
-      this.mess = mess;
+      this.content = mess;
   }
+
+
+
 
 
 }
