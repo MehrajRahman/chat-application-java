@@ -14,6 +14,7 @@ public class Message {
 
     private int id;
     private String content;
+    private String sentUserId;
   private Date date;
 
   public Message() {
@@ -33,7 +34,10 @@ public class Message {
   }
 
 
-
-
-
+    public void setSentUserId(String sentUserId) {
+        this.sentUserId = sentUserId;
+    }
+    public String getSentUserId() {
+       return this.sentUserId;
+    }
 }

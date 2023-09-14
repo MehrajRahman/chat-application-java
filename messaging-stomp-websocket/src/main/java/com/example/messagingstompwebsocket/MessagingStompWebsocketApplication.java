@@ -8,9 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 //@SpringBootApplication
 @SpringBootApplication
-//@ComponentScan({"com.example.messagingstompwebsocket"})
-//@EntityScan("com.example.messagingstompwebsocket")
-//@EnableJpaRepositories("com.example.messagingstompwebsocket")
 public class MessagingStompWebsocketApplication {
 
 	public static void main(String[] args) {

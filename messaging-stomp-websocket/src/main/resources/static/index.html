@@ -8,23 +8,54 @@
     <meta name="owner" content="learnwithsumit.com" />
     <title>Inbox</title>
     <link rel="shortcut icon" href="./images/favicon.png" />
-    <link rel="stylesheet" href="./toastify.css" />
-    <link rel="stylesheet" href="./style.css" />
-    <link href="/main.css" rel="stylesheet">
+
+    <!-- <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    /> -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-    <script src="./js/toastify.js"></script>
     <script src="/app.js"></script>
+    <link rel="stylesheet" href="./toastify.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./toastify.js"></script>
+    <script>
+      console.log("Hello");
+      if (sessionStorage.getItem("status") != null) {
+        //redirect to page
+        alert("Is Login : True");
+        connect();
+      } else {
+        //show validation message
+        location.replace("http://localhost:8080/login.html");
+        // alert("Is Login : False");
+      }
+    </script>
   </head>
   <body>
     <div class="menu">
       <div class="menu-item"><a href="/inbox">Inbox</a></div>
-      <div class="menu-item"><a href="/users">Users</a></div>
-      <div class="menu-item"><a href="/">Login</a></div>
-      <button id="connect" class="btn btn-default" type="submit">Connect</button>
-      <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+      <div class="menu-item"><a href="/users.html">Users</a></div>
+      <div class="menu-item"><a href="login.html">Login</a></div>
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="connect">WebSocket connection:</label>
+          <button id="connect" class="btn btn-default" type="submit">
+            Connect
+          </button>
+          <button
+            id="disconnect"
+            class="btn btn-default"
+            type="submit"
+            disabled="disabled"
+          >
+            Disconnect
+          </button>
+        </div>
+      </form>
     </div>
-   
     <div id="chat-container">
       <div id="search-container">
         <input type="text" placeholder="Search" />
@@ -51,26 +82,10 @@
         <img src="./images/trash.png" alt="Delete Conversation" />
       </div>
       <div id="chat-message-list">
-        <table id="conversation" class="table table-striped">
-            <thead>
-            <tr>
-                <th>Greetings</th>
-            </tr>
-            </thead>
-            <tbody class="message-content message-row other-message" id="greetings">
-                <div  >
-                    <!-- <img src="./images/user1.png" alt="Sumit" /> -->
-                   
-                    
-                    <!-- <div class="message-time">Apr 16</div> -->
-                  </div>
-            </tbody>
-        </table>
-        <div class="message-row other-message">
-          <div  >
+        <!-- <div class="message-row other-message">
+          <div class="message-content">
             <img src="./images/user1.png" alt="Sumit" />
-           
-            
+            <div class="message-text">Ok then</div>
             <div class="message-time">Apr 16</div>
           </div>
         </div>
@@ -79,12 +94,15 @@
             <div class="message-text">Lorem ipsum dolor sit amet</div>
             <div class="message-time">Apr 16</div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div id="chat-form">
-        <!-- <img src="./images/attachment.png" alt=Add Attachment"" /> -->
-        <button id="message2" class="btn btn-default" type="submit">Send</button>
-        <input type="text"  id="message" placeholder="Type a message" />
+        <!-- <img src="./images/attachment.png" alt=Add Attachment"" />
+        <input type="text" placeholder="Type a message" /> -->
+        <button id="message2" class="btn btn-default" type="submit">
+          Send
+        </button>
+        <input type="text" id="message" placeholder="Type a message" />
       </div>
     </div>
 
@@ -98,7 +116,6 @@
           <form>
             <input type="text" placeholder="Name" />
             <input type="text" placeholder="Username" />
-            
             <input type="button" value="Submit" />
           </form>
         </div>

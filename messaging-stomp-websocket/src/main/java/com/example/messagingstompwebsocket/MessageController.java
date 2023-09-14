@@ -31,6 +31,23 @@ public class MessageController {
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         object.put("mess", message.getMess());
+        object.put("id", message.getSentUserId());
         object.put("date", localDate);
         return object;
+    }
+
+    @MessageMapping("/message2")
+    @SendTo("/secured/{user}")
+
+    public Object secured(Message message) throws Exception {
+        Thread.sleep(500); // simulated delay
+        System.out.println("Hello Secured @!!!!!");
+        Map<String, Object> object = new HashMap<>();
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        object.put("mess", message.getMess());
+        object.put("date", localDate);
+        return object;
+    }
 }
