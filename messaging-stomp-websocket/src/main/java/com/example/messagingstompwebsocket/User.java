@@ -19,7 +19,7 @@ public class User implements Serializable {
 
 
 
-    private ArrayList<Conversation> conversationArrayList;
+    private ArrayList<Conversation> conversationArrayList = new ArrayList<Conversation>();
     private int numberOfConversation = 0;
 
     public User(){
@@ -32,6 +32,8 @@ public class User implements Serializable {
         this.name = n;
         this.mobile = m;
         this.password = p;
+        this.conversationArrayList = new ArrayList<Conversation>();
+
 
     }
 
@@ -63,6 +65,7 @@ public class User implements Serializable {
         this.name = another.getName();
         this.password = another.getPassword();
         this.username = another.getUsername();
+        this.conversationArrayList = another.conversationArrayList;
     }
 
     public String getName() {

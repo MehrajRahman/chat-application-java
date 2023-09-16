@@ -123,6 +123,9 @@
               // successToast();
               successToast.showToast();
               // location.replace("http://localhost:8080/");
+              setTimeout(function () {
+                location.replace("http://localhost:8080/");
+              }, 1000);
             } else {
               errorToast.errorToast();
             }

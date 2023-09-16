@@ -17,7 +17,28 @@
     /> -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script> -->
     <script src="/app.js"></script>
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    /> -->
     <link rel="stylesheet" href="./toastify.css" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./toastify.js"></script>
@@ -25,43 +46,150 @@
       console.log("Hello");
       if (sessionStorage.getItem("status") != null) {
         //redirect to page
-        alert("Is Login : True");
-        connect();
+        // alert("Is Login : True");
+
+        async function logMovies() {
+          //
+          const response = await fetch("http://localhost:8080/conversation/");
+          const users = await response.json();
+
+          users.forEach((element) => {
+            console.log(element);
+            var mail1 = element.id.split(":")[0];
+            var mail2 = element.id.split(":")[1];
+
+            var mail;
+            if (sessionStorage.getItem("email") == mail1) {
+              mail = mail2;
+            } else {
+              mail = mail1;
+            }
+            $("#conversation-list").append(
+              `<div id="${mail}"  class="conversation active">
+                  <img src="./images/user1.png" alt="Sumit" />
+                  <div class="title-text">${mail}</div>
+                  <div class="conversation-message">Start Messaging</div>
+                </div>`
+            );
+          });
+
+          var convBoxes = document.getElementsByClassName("conversation");
+          Array.from(convBoxes).forEach(function (postBox) {
+            // video.muted = false;
+            console.log(postBox);
+            var postId = postBox.getAttribute("id");
+            postBox.onclick = function () {
+              console.log(postId);
+              sessionStorage.setItem("convId", postId);
+              $("#chat-name").text(postId);
+              connect();
+
+              document.getElementById("chat-message-list").innerHTML = "";
+            };
+          });
+
+          $("#user-name").text(sessionStorage.getItem("name"));
+        }
+        logMovies();
       } else {
         //show validation message
         location.replace("http://localhost:8080/login.html");
         // alert("Is Login : False");
       }
+
+      $("#logout").click(() => {
+        console.log("YO!!");
+      });
     </script>
   </head>
   <body>
-    <div class="menu">
-      <div class="menu-item"><a href="/inbox">Inbox</a></div>
-      <div class="menu-item"><a href="/users.html">Users</a></div>
-      <div class="menu-item"><a href="login.html">Login</a></div>
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="connect">WebSocket connection:</label>
-          <button id="connect" class="btn btn-default" type="submit">
-            Connect
+    <nav class="w-75 navbar navbar-expand-lg navbar-light bg-light">
+      <a class="menu-item" href="#">Navbar</a>
+      <!-- <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <div class="menu-item"><a href="/inbox">Inbox</a></div>
+            <!-- <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            > -->
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li> -->
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li> -->
+          <li class="nav-item">
+            <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+
+            <div class="menu-item"><a href="/users.html">Users</a></div>
+          </li>
+
+          <li class="nav-item">
+            <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+
+            <div class="menu-item">
+              <a id="user-name" href="login.html">login</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+
+            <div class="menu-item">
+              <a id="logout" href="login.html">logout</a>
+            </div>
+          </li>
+        </ul>
+
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
           </button>
-          <button
-            id="disconnect"
-            class="btn btn-default"
-            type="submit"
-            disabled="disabled"
-          >
-            Disconnect
-          </button>
-        </div>
-      </form>
-    </div>
+        </form> -->
+      </div>
+    </nav>
+
     <div id="chat-container">
       <div id="search-container">
         <input type="text" placeholder="Search" />
       </div>
       <div id="conversation-list">
-        <div class="conversation active">
+        <!-- <div class="conversation active">
           <img src="./images/user1.png" alt="Sumit" />
           <div class="title-text">Sumit Saha</div>
           <di class="created-date"> Apr 16 </di>
@@ -72,13 +200,13 @@
           <div class="title-text">Sumit Saha</div>
           <di class="created-date"> Apr 16 </di>
           <div class="conversation-message">This is a message</div>
-        </div>
+        </div> -->
       </div>
       <div id="new-message-container">
         <a href="#">+</a>
       </div>
       <div id="chat-title">
-        <span>Sumit</span>
+        <span id="chat-name">Start Conversation</span>
         <img src="./images/trash.png" alt="Delete Conversation" />
       </div>
       <div id="chat-message-list">

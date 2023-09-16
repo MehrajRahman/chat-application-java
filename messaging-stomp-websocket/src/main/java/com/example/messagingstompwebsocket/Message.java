@@ -15,6 +15,8 @@ public class Message {
     private int id;
     private String content;
     private String sentUserId;
+
+    private String convId;
   private Date date;
 
   public Message() {
@@ -24,6 +26,13 @@ public class Message {
     this.content = mess;
     this.date = new Date();
   }
+
+    public Message(String mess,String s, String c) {
+        this.content = mess;
+        this.sentUserId = s;
+        this.convId = c;
+        this.date = new Date();
+    }
   
   public String getMess(){
       return this.content;
@@ -39,5 +48,13 @@ public class Message {
     }
     public String getSentUserId() {
        return this.sentUserId;
+    }
+
+    public String getConvId() {
+        return convId;
+    }
+
+    public void setConvId(String convId) {
+        this.convId = convId;
     }
 }

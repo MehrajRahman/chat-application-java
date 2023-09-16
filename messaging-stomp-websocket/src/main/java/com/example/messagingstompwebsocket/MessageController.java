@@ -37,16 +37,18 @@ public class MessageController {
     }
 
     @MessageMapping("/message2")
-    @SendTo("/secured/{user}")
+    @SendTo("/topic/secured")
 
     public Object secured(Message message) throws Exception {
         Thread.sleep(500); // simulated delay
-        System.out.println("Hello Secured @!!!!!");
+        System.out.println("Hello Secured @!!!!! convId" + message.getMess());
         Map<String, Object> object = new HashMap<>();
 
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         object.put("mess", message.getMess());
+        object.put("id", message.getSentUserId());
+        object.put("convId", message.getConvId());
         object.put("date", localDate);
         return object;
     }

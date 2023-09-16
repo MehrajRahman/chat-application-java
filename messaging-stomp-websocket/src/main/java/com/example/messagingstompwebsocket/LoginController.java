@@ -20,8 +20,7 @@ public class LoginController  {
     @PostMapping
     public User createUser(@RequestBody User user)
   {
-      System.out.println("uSER PRINTING WHILE LOGIN!");
-      user.display();
+//      user.display();
       File file = new File("user.dat");
       boolean append = file.exists();
 
@@ -34,8 +33,8 @@ public class LoginController  {
                   User ll = (User)input.readObject();
 
                   if(ll != null){
-                      ll.display();
-                      System.out.println(ll.getEmail() + " " + user.getEmail());
+//                      ll.display();
+//                      System.out.println(ll.getEmail() + " " + user.getEmail());
                       if(user.getEmail().equals(ll.getEmail()) && user.getPassword().equals(ll.getPassword())){
                           f = 1;
                           ret = new User(ll);

@@ -17,7 +17,7 @@
   </head>
   <body>
     <div class="menu">
-      <div class="menu-item"><a href="/inbox">Inbox</a></div>
+      <div class="menu-item"><a href="/">Inbox</a></div>
       <div class="menu-item"><a href="/users">Users</a></div>
       <div class="menu-item"><a href="/">Login</a></div>
     </div>
@@ -108,6 +108,7 @@
         const users = await response.json();
 
         users.forEach((element) => {
+          console.log(element);
           $("#user-table").append(
             `
           ${
@@ -138,6 +139,37 @@
             // document.getElementById("comment-form-" + postId).style.display =
             //   "block";
             console.log(postId);
+            var id2 = sessionStorage.getItem("email");
+            var idd;
+            if (id2 < postId) {
+              idd = id2 + ":" + postId + ":" + "2023";
+            } else {
+              idd = postId + ":" + id2 + ":" + "2023";
+            }
+            fetch("http://localhost:8080/conversation/", {
+              method: "POST",
+              body: JSON.stringify({
+                // username: $("#email").val(),
+                id: idd,
+              }),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+                // if (data.status) {
+                //   // Toastify("Congratulations!!");
+                //   // successToast();
+                //   successToast.showToast();
+                //   // location.replace("http://localhost:8080/");
+                // } else {
+                //   errorToast.errorToast();
+                // }
+              });
           };
         });
       }

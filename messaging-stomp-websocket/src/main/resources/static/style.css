@@ -29,6 +29,7 @@
 html,
 body {
   height: 100%;
+  width: 100%;
 }
 
 html {
@@ -42,6 +43,29 @@ body {
   place-items: center;
 }
 
+.navbar {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  background-color: #52d794;
+  height: 50px;
+  align-items: center;
+}
+.navbar a {
+  text-decoration: none;
+}
+.navbar .navbar-nav {
+  display: flex;
+  justify-content: space-between;
+}
+.navbar .navbar-nav li {
+  list-style: none;
+}
+.navbar .navbar-nav a {
+  text-decoration: none;
+  color: #111;
+}
 .center {
   text-align: center;
 }
@@ -50,6 +74,12 @@ p.error {
   color: var(--red);
   font-size: 1.2rem;
   display: none;
+}
+
+.button {
+  font-size: 20px;
+  text-decoration: none;
+  color: orangered;
 }
 
 .show {
